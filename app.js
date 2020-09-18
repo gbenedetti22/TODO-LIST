@@ -4,6 +4,11 @@ const todoList=document.querySelector('.todo-list');
 
 function addTodo(event) {
     event.preventDefault();
+
+    if(todoInput.value===""){
+        alert("Hey devi inserire qualcosa da fare!");
+        return;
+    }
     const todoDiv=document.createElement('div');
     todoDiv.classList.add("todo");
 
@@ -27,6 +32,20 @@ function addTodo(event) {
     todoList.appendChild(todoDiv);
     todoInput.value ="";
 }
+function deleteCheck(event) {
+    const item=event.target;
+    if(item.classList[0]==="trash-btn"){
+        item.parentElement.classList.add("fall");
+        item.parentElement.addEventListener("transitionend",function(){
+            item.parentElement.remove();
+        });
+    }
 
+    if(item.classList[0]=== "complete-btn"){
+        item.parentElement.classList.toggle("completed");
+    }
+}
+
+todoList.addEventListener("click", deleteCheck);
 todoButton.addEventListener('click',addTodo);
 
